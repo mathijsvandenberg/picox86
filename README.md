@@ -4,7 +4,7 @@ x86 emulator on Raspberry Pi Pico
 ![](img/picox86pcb.jpg)
 ![](img/picox86back.jpg)
 ![](img/picox86screen.jpg)
-
+![](img/picox86screen2.jpg)
 
 Quick links:
 
