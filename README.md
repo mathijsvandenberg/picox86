@@ -2,9 +2,15 @@
 x86 emulator on Raspberry Pi Pico
 
 ![](img/picox86pcb.jpg)
+PCB front, got some awful cheap solder at home, better get some good quality solder
 ![](img/picox86back.jpg)
+PCB back fitted with RAM and FLASH (and some decoup + tank capacitors) and the 8 270 Ohm resistors
 ![](img/picox86screen.jpg)
+First attempts for basic output in VGA 16x8 font
 ![](img/picox86screen2.jpg)
+Getting CPU temperature, start with register output
+![](img/picox86screen3.jpg)
+FLASH working, can read out JEDEC to verify and read first sector to boot from to 0000:7C00 (INT 0x19)
 
 Quick links:
 
