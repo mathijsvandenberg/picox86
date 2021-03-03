@@ -10,7 +10,9 @@ First attempts for basic output in VGA 16x8 font
 ![](img/picox86screen2.jpg)
 Getting CPU temperature, start with register output
 ![](img/picox86screen3.jpg)
-FLASH working, can read out JEDEC to verify and read first sector to boot from to 0000:7C00 (INT 0x19)
+2021-03-03 FLASH working, can read out JEDEC to verify, print out CPU regs realtime and read first sector to boot from to 0000:7C00 (INT 0x19). Will put some initial sources online soon
+
+
 
 Quick links:
 
