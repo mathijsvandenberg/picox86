@@ -1,6 +1,10 @@
 # picox86
 x86 emulator on Raspberry Pi Pico
 
+
+https://user-images.githubusercontent.com/10139098/110543817-13299080-812b-11eb-9c88-674cdae919fc.mp4
+
+
 ![](img/picox86pcb.jpg)
 PCB front, got some awful cheap solder at home, better get some good quality solder
 ![](img/picox86back.jpg)
@@ -11,6 +15,8 @@ First attempts for basic output in VGA 16x8 font
 Getting CPU temperature, start with register output
 ![](img/picox86screen3.jpg)
 2021-03-03 FLASH working, can read out JEDEC to verify, print out CPU regs realtime and read first sector to boot from to 0000:7C00 (INT 0x19). Will put some initial sources online soon
+
+
 
 
 
