@@ -169,7 +169,7 @@ int __not_in_flash("main") main()
 	for (int x=0;x<8193;x++)
 	{
 		SetCursor(3,0);	dviprintf("RAM: %4d KB [Espressif ESP-PSRAM64H 64Mbit PSRAM]",x);
-		sleep_us(500);
+		sleep_us(250);
 	}
 	SetCursor(4,0);	dviprintf("FDD: 1.44 MB [ADESTO AT25SF161 16Mbit SPI Flash]");
 	SetCursor(5,0);	dviprintf("CPUTEMP: ");
@@ -194,7 +194,7 @@ int __not_in_flash("main") main()
 	IRQ(0x19);
 	SetCursor(8,0);	dviprintf("Loaded bootsector at 0000:7C00! Booting up!",cnt);
 	SetCursor(10,0);
-	sleep_ms(1000);
+	sleep_ms(500);
 	cpu.counter = 0; 
 	// Infinite loop using for(;;), faster than while(1)
 	for (;;)

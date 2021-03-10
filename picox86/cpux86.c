@@ -97,22 +97,90 @@ bool AO=false;
 #define BH 7
 
 
+#define endi() oi=0
 
+
+void push(uint16_t value)
+{
+  cpu.sp--;
+  cpu.sp--;
+  ram[(cpu.ss << 4) + cpu.sp]=(value >> 0) & 0xFF;
+  ram[(cpu.ss << 4) + cpu.sp+1]=(value >> 8) & 0xFF;
+}
+
+void pop(uint16_t * value)
+{
+  *value = ram[(cpu.ss << 4) + cpu.sp] + (ram[(cpu.ss << 4) + cpu.sp+1] << 8);
+  cpu.sp++;
+  cpu.sp++;
+}
 
 inline void CPUCycle()
 { 
 	opcode = ReadInstr();
-
-	if (oi==0) // New opcode to parse
-	{
-		dviprintf("\n[%04X:%04X] ",cpu.cs,cpu.ip);
-	}
-	dviprintf("%02X ",opcode);
-
-
-
+	
 	switch(opcode)
 	{
+		// Illegal
+		case 0x00: sleep_ms(500);endi();break;
+
+		// NOP
+		case 0x90: endi();break;
+
+
+
+		//MOV Immediate to Reg
+		case 0xB0: cpu.al=ReadInstr();endi();break;
+		case 0xB1: cpu.cl=ReadInstr();endi();break;
+		case 0xB2: cpu.dl=ReadInstr();endi();break;
+		case 0xB3: cpu.bl=ReadInstr();endi();break;
+		case 0xB4: cpu.ah=ReadInstr();endi();break;
+		case 0xB5: cpu.ch=ReadInstr();endi();break;
+		case 0xB6: cpu.dh=ReadInstr();endi();break;
+		case 0xB7: cpu.bh=ReadInstr();endi();break;
+
+		case 0xB8: cpu.ax=ReadInstr()+256*ReadInstr();endi();break;
+		case 0xB9: cpu.cx=ReadInstr()+256*ReadInstr();endi();break;
+		case 0xBA: cpu.dx=ReadInstr()+256*ReadInstr();endi();break;
+		case 0xBB: cpu.bx=ReadInstr()+256*ReadInstr();endi();break;
+		case 0xBC: cpu.sp=ReadInstr()+256*ReadInstr();endi();break;
+		case 0xBD: cpu.bp=ReadInstr()+256*ReadInstr();endi();break;
+		case 0xBE: cpu.si=ReadInstr()+256*ReadInstr();endi();break;
+		case 0xBF: cpu.di=ReadInstr()+256*ReadInstr();endi();break;
+
+    // PUSH registers
+    case 0x50: push(cpu.ax);endi();break;
+    case 0x51: push(cpu.cx);endi();break;
+    case 0x52: push(cpu.dx);endi();break;
+    case 0x53: push(cpu.bx);endi();break;
+    case 0x54: push(cpu.sp);endi();break;
+    case 0x55: push(cpu.bp);endi();break;
+    case 0x56: push(cpu.si);endi();break;
+    case 0x57: push(cpu.di);endi();break;
+
+    // PUSH segments
+    case 0x06: push(cpu.es);endi();break;
+    case 0x0E: push(cpu.cs);endi();break;
+    case 0x16: push(cpu.ss);endi();break;
+    case 0x1e: push(cpu.ds);endi();break;
+
+    // POP registers
+    case 0x58: pop(&cpu.ax);endi();break;
+    case 0x59: pop(&cpu.cx);endi();break;
+    case 0x5A: pop(&cpu.dx);endi();break;
+    case 0x5B: pop(&cpu.bx);endi();break;
+    case 0x5C: pop(&cpu.sp);endi();break;
+    case 0x5D: pop(&cpu.bp);endi();break;
+    case 0x5E: pop(&cpu.si);endi();break;
+    case 0x5F: pop(&cpu.di);endi();break;
+
+    // POP segments
+    case 0x07: pop(&cpu.es);endi();break;
+    case 0x0F: pop(&cpu.cs);endi();break;
+    case 0x17: pop(&cpu.ss);endi();break;
+    case 0x1F: pop(&cpu.ds);endi();break;
+
+
 		// Segment override prefix
 		case 0x26: seg=ES;break;
 		case 0x2E: seg=CS;break;
@@ -135,15 +203,19 @@ inline void CPUCycle()
 		default: break;
 	}
 	cpu.counter--;
-	cpu.ip++;
-	oi++;
-	sleep_ms(50);
+	sleep_ms(500);
 }
 
 
 static inline uint8_t ReadInstr()
 {
-  return(ram[(cpu.cs << 4) + cpu.ip]);
+	if (oi==0) // New opcode to parse
+	{
+		dviprintf("\n[%04X:%04X] ",cpu.cs,cpu.ip);
+	}
+	dviprintf("%02X ",ram[(cpu.cs << 4) + cpu.ip]);
+	oi++;	
+  return(ram[(cpu.cs << 4) + cpu.ip++]);
 }
 
 static inline uint8_t ReadData(uint16_t Address)
