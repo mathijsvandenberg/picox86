@@ -73,7 +73,7 @@ void __not_in_flash("main") core1_main() {
 	static uint y = 1;
 	uint32_t *tmdsbuf=0;
 
-	while (1) 
+	for (;;)
 	{
 		for (uint i = 0; i < CHAR_COLS; ++i)
 		{
@@ -174,8 +174,7 @@ int __not_in_flash("main") main()
 	SetCursor(4,0);	dviprintf("FDD: 1.44 MB [ADESTO AT25SF161 16Mbit SPI Flash]");
 	SetCursor(5,0);	dviprintf("CPUTEMP: ");
 
-	sem_release(&dvi_start_sem);
-	
+		
 	// Init ADC for temperature measurement on the die
 	adc_init();
 	adc_select_input(4);
