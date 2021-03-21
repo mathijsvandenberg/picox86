@@ -5,12 +5,46 @@
 #include <stdlib.h>
 #include "pico/stdlib.h"
 
-void IRQ(int irq);
+void x86IRQ(int irq);
+void InitCPU();
 extern inline void CPUCycle();
 static inline uint8_t ReadInstr();
 static inline uint8_t ReadData(uint16_t Address);
 static inline void WriteData(uint16_t Address,uint8_t Value);
 
+#define ES 0
+#define CS 1
+#define SS 2
+#define DS 3
+
+#define AX 0
+#define CX 1
+#define DX 2
+#define BX 3
+#define SP 4
+#define BP 5
+#define SI 6
+#define DI 7
+
+#define AL 0
+#define CL 1
+#define DL 2
+#define BL 3
+#define AH 4
+#define CH 5
+#define DH 6
+#define BH 7
+
+/*
+#define ADD 0
+#define OR 1
+#define ADC 2
+#define SBB 3
+#define AND 4
+#define SUB 5
+#define XOR 6
+#define CMP 7
+*/
 
 
 typedef struct cpu_8086_s cpu_t;
