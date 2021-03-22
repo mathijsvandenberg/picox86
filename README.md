@@ -1,8 +1,8 @@
 # picox86
 x86 emulator on Raspberry Pi Pico
 
-
-https://user-images.githubusercontent.com/10139098/110543817-13299080-812b-11eb-9c88-674cdae919fc.mp4
+![](img/picox86color.jpg)
+Several opcodes implemented, more to go. Now in color and realtime register display
 
 
 ![](img/picox86pcb.jpg)
